@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get A Grip — Community. Culture. Content.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cream:#F5F0E8;--navy:#1A2B5C;--navy-mid:#2A3D6B;--gold:#C9A84C;--dark:#0D0D0D;--muted:#888}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--dark);font-family:'Inter',sans-serif;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:24px 48px;transition:background .3s,padding .3s}
+    nav.scrolled{background:rgba(245,240,232,.96);backdrop-filter:blur(12px);padding:16px 48px;border-bottom:1px solid rgba(26,43,92,.1)}
+    .nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:18px;letter-spacing:.08em;color:var(--navy);text-decoration:none;text-transform:uppercase}
+    .nav-logo span{color:var(--gold)}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);text-decoration:none;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-cta{background:var(--navy);color:var(--cream)!important;padding:10px 24px;transition:background .2s!important}
+    .nav-cta:hover{background:var(--gold)!important;color:var(--dark)!important}
+    .hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 10vw;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 70%);pointer-events:none}
+    .hero-tag{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;font-weight:500}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,110px);font-weight:900;color:var(--cream);line-height:.95;margin-bottom:36px;max-width:900px}
+    .hero h1 em{font-style:italic;color:var(--gold)}
+    .hero p{font-size:clamp(15px,1.5vw,18px);color:rgba(245,240,232,.6);max-width:520px;line-height:1.7;margin-bottom:48px;font-weight:300}
+    .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:16px 36px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:all .25s;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+    .btn-primary{background:var(--gold);color:var(--dark)}.btn-primary:hover{background:#fff}
+    .btn-outline{background:transparent;border:1px solid rgba(245,240,232,.35);color:var(--cream)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+    .hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(245,240,232,.35);font-size:10px;letter-spacing:.25em;text-transform:uppercase}
+    .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+    section{padding:120px 10vw}
+    .section-tag{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:900;line-height:1.05;color:var(--navy);margin-bottom:24px}
+    .section-body{font-size:16px;line-height:1.8;color:#555;max-width:580px;font-weight:300}
+    .line-div{width:60px;height:2px;background:var(--gold);margin:32px 0}
+    .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .about-right{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .stat-card{background:var(--navy);padding:40px 32px;color:var(--cream)}
+    .stat-card:nth-child(2){margin-top:28px}
+    .stat-card:nth-child(4){margin-bottom:28px}
+    .stat-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:12px}
+    .stat-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,232,.55);font-weight:500;line-height:1.6}
+    .services{background:var(--navy)}
+    .services .section-title{color:var(--cream)}
+    .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px}
+    .service-card{background:rgba(255,255,255,.04);padding:48px 32px;border-top:2px solid transparent;transition:border-color .3s,background .3s}
+    .service-card:hover{border-color:var(--gold);background:rgba(255,255,255,.08)}
+    .service-icon{font-size:28px;margin-bottom:20px}
+    .service-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:16px}
+    .service-desc{font-size:13px;line-height:1.8;color:rgba(245,240,232,.5);font-weight:300}
+    .work-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px}
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+    .case-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+    .case-card-tall{grid-row:span 2;aspect-ratio:auto;min-height:600px}
+    .case-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s ease}
+    .case-card:hover .case-bg{transform:scale(1.06)}
+    .case-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,40,.92) 0%,rgba(10,15,40,.15) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:36px 32px}
+    .case-client{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600}
+    .case-title{font-family:'Playfair Display',serif;font-size:clamp(18px,2vw,26px);font-weight:900;color:var(--cream);margin-bottom:14px;line-height:1.2}
+    .case-stat{font-size:12px;color:rgba(245,240,232,.65);line-height:1.7;font-weight:300}
+    .case-arrow{display:inline-flex;width:40px;height:40px;border:1px solid rgba(245,240,232,.3);align-items:center;justify-content:center;color:var(--cream);font-size:18px;margin-top:20px;transition:all .25s}
+    .case-card:hover .case-arrow{background:var(--gold);border-color:var(--gold);color:var(--dark)}
+    .partners{background:var(--navy);padding:80px 10vw}
+    .partners-label{text-align:center;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:rgba(245,240,232,.3);margin-bottom:48px;font-weight:500}
+    .logos-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:36px 56px}
+    .logo-item{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,240,232,.28);transition:color .3s}
+    .logo-item:hover{color:rgba(245,240,232,.8)}
+    .manifesto{text-align:center;padding:160px 10vw}
+    .manifesto-quote{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,54px);font-weight:900;color:var(--navy);line-height:1.15;max-width:960px;margin:0 auto 48px}
+    .manifesto-quote em{color:var(--gold);font-style:italic}
+    .manifesto-sub{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:500}
+    .cta-section{background:var(--navy);padding:140px 10vw;display:flex;flex-direction:column;align-items:center;text-align:center}
+    .cta-section .section-title{color:var(--cream);margin-bottom:20px}
+    .cta-section>p{color:rgba(245,240,232,.55);font-size:16px;max-width:480px;line-height:1.7;margin-bottom:48px;font-weight:300}
+    .cta-email{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,.35);margin-top:28px}
+    .cta-email a{color:var(--gold);text-decoration:none}
+    footer{background:var(--dark);padding:48px 10vw;display:flex;justify-content:space-between;align-items:center}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--cream)}
+    .footer-logo span{color:var(--gold)}
+    .footer-tagline{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+    .footer-links{display:flex;gap:28px}
+    .footer-links a{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:1fr 1fr}.case-card-tall{grid-row:span 1;min-height:auto;aspect-ratio:3/4}}
+    @media(max-width:768px){nav{padding:20px 24px}.nav-links{display:none}nav.scrolled{padding:14px 24px}section{padding:80px 6vw}.about-inner{display:block}.about-right{margin-top:40px}.services-grid,.case-grid{grid-template-columns:1fr}.case-card-tall{min-height:auto;aspect-ratio:3/4}.work-header{display:block}footer{flex-direction:column;gap:20px;text-align:center}.footer-links{flex-wrap:wrap;justify-content:center}}
+  </style>
+</head>
+<body>
+<nav id="nav">
+  <a href="#" class="nav-logo">Get A <span>Grip</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Build</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Miami-Based Experiential Marketing</p>
+  <h1>We Don't<br/>Throw Parties.<br/>We <em>Build</em><br/>Moments.</h1>
+  <p>Get A Grip bridges the gap between cool and conversion — curating brand activations built to create community, culture, and top-of-funnel content.</p>
+  <div class="hero-btns">
+    <a href="#work" class="btn btn-primary">See Our Work</a>
+    <a href="#contact" class="btn btn-outline">Start a Project</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<section id="about">
+  <div class="about-inner">
+    <div>
+      <p class="section-tag">Our Philosophy</p>
+      <h2 class="section-title">Culture First.<br/>Always.</h2>
+      <div class="line-div"></div>
+      <p class="section-body">We started by solving a problem we lived. Companies dropping hundreds of thousands on events and walking away with handshakes. Beautiful venues driving one night of revenue and zero conversation the morning after.</p>
+      <p class="section-body" style="margin-top:20px">So we built something better — activations designed from scratch to make people feel something real. No gimmicks. No recycled concepts. Bespoke by design. Measurable by default.</p>
+    </div>
+    <div class="about-right">
+      <div class="stat-card"><div class="stat-num">1.3M</div><div class="stat-label">Likes on a single organic activation</div></div>
+      <div class="stat-card"><div class="stat-num">4–5×</div><div class="stat-label">Revenue lift from curation alone</div></div>
+      <div class="stat-card" style="margin-top:0"><div class="stat-num">$30K</div><div class="stat-label">Bar revenue in one night</div></div>
+      <div class="stat-card" style="margin-top:0;margin-bottom:28px"><div class="stat-num">72h</div><div class="stat-label">500 RSVPs — no ads, no press</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <p class="section-tag">What We Do</p>
+  <h2 class="section-title">Every Format.<br/>One Standard.</h2>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">📸</div><div class="service-name">Content</div><p class="service-desc">Every activation is a content machine. Photo, video, editorial — captured live and built to run across every channel long after the night ends. Your brand leaves with assets, not just memories.</p></div>
+    <div class="service-card"><div class="service-icon">⚡</div><div class="service-name">Activation</div><p class="service-desc">From guerrilla campaigns in Brickell to intimate rooftop experiences to wellness events and client dinners — we design the format around your goal, not the other way around.</p></div>
+    <div class="service-card"><div class="service-icon">🤍</div><div class="service-name">White Glove</div><p class="service-desc">Fully managed, fully hands-off for your team. We handle every detail from concept to execution so you show up to something that already works.</p></div>
+    <div class="service-card"><div class="service-icon">🎯</div><div class="service-name">Audience Strategy</div><p class="service-desc">We source talent, models, and creatives — but for your buyer relationships, VIPs, and press contacts, we work alongside your team to ensure the right people show up.</p></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="work-header">
+    <div><p class="section-tag">Case Studies</p><h2 class="section-title">The Work<br/>Speaks.</h2></div>
+    <p style="max-width:300px;font-size:14px;color:#888;font-weight:300;line-height:1.8">Three brands. Three formats. One result — cultural moments people wanted to be part of.</p>
+  </div>
+  <div class="case-grid">
+    <div class="case-card case-card-tall">
+      <div class="case-bg" style="background:linear-gradient(160deg,#0f1b35 0%,#1a2d50 40%,#0a1220 100%)"></div>
+      <div class="case-overlay">
+        <span class="case-client">Shift Robotics × Spark Growth</span>
+        <h3 class="case-title">Content That Didn't Look Like Content</h3>
+        <p class="case-stat">Shot candidly in a real environment — no studio, no set. 1.3M likes, 4.3K comments, with individual threads reaching nearly 8,000 likes on their own.</p>
+        <span class="case-arrow">→</span>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-bg" style="background:linear-gradient(160deg,#1a0a02 0%,#2d1505 50%,#120800 100%)"></div>
+      <div class="case-overlay">
+        <span class="case-client">Kisaki — Speakeasy, South Pointe</span>
+        <h3 class="case-title">We Didn't Throw a Party. We Launched a Venue.</h3>
+        <p class="case-stat">500 RSVPs in 72 hours · 300 through the door · $30K+ bar revenue · 4–5× lift driven entirely by curation and word of mouth. Zero ad spend.</p>
+        <span class="case-arrow">→</span>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-bg" style="background:linear-gradient(160deg,#1a0505 0%,#3a0808 50%,#0d0202 100%)"></div>
+      <div class="case-overlay">
+        <span class="case-client">Mastercard × Hitex Marketing</span>
+        <h3 class="case-title">Merch as a Cultural Artifact</h3>
+        <p class="case-stat">Featured in a pre-game segment on ESPN. Broadcast globally on the day of the Champions League Final. Complete budget reallocation followed.</p>
+        <span class="case-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="partners">
+  <p class="partners-label">Network &amp; Collaborations</p>
+  <div class="logos-grid">
+    <span class="logo-item">Don Julio</span><span class="logo-item">Four Seasons</span><span class="logo-item">Michael Kors</span><span class="logo-item">Amazon</span><span class="logo-item">Mastercard</span><span class="logo-item">FIFA 2026</span><span class="logo-item">Miami Design District</span><span class="logo-item">The Setai</span><span class="logo-item">Gatorade</span><span class="logo-item">La Tropical</span><span class="logo-item">Aloe Up</span><span class="logo-item">Casa Neos</span>
+  </div>
+</div>
+
+<section class="manifesto">
+  <p class="section-tag">The Standard</p>
+  <p class="manifesto-quote">"The difference between running an ad<br/>and <em>owning a conversation.</em>"</p>
+  <p class="manifesto-sub">Community. Culture. Content.</p>
+</section>
+
+<section class="cta-section" id="contact">
+  <p class="section-tag">Ready to Build</p>
+  <h2 class="section-title">Let's Build<br/>Something Real.</h2>
+  <p>You hand us the brief. We hand you back a campaign with a live moment at the center — and content, community, and cultural equity that compounds long after the event ends.</p>
+  <a href="mailto:reid@getgripmgmt.com" class="btn btn-primary">Start the Conversation</a>
+  <p class="cta-email">Or reach us at <a href="mailto:reid@getgripmgmt.com">reid@getgripmgmt.com</a></p>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">Get A <span>Grip</span></div>
+    <div class="footer-tagline" style="margin-top:8px">Miami, FL · [GAG]</div>
+  </div>
+  <p class="footer-tagline">© 2026 Get A Grip Management.</p>
+  <div class="footer-links">
+    <a href="https://instagram.com/getagrip____" target="_blank">Instagram</a>
+    <a href="mailto:reid@getgripmgmt.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+</script>
+</body>
+</html>
